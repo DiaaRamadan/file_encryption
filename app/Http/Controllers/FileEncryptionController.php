@@ -13,6 +13,10 @@ class FileEncryptionController extends Controller
     public function __construct(){
         $this->_encrypt = new Encrypt(new OpenSSL());
     }
+
+    /**
+     * display the Main view
+     */
     public function index(){
       return view('encryptView');
     }
@@ -32,16 +36,28 @@ class FileEncryptionController extends Controller
 
     }
 
+    /**
+     * @param $file
+     * Make encrypt for file data
+     */
     private function encrypt($file): void{
         $fileContent = file_get_contents($file);
         file_put_contents($file,$this->_encrypt->encryption()->encrypt($fileContent));
     }
 
+    /**
+     * @param $file
+     * make decrypt for file data
+     */
     private function decrypt($file){
         $fileContent = file_get_contents($file);
         file_put_contents($file,$this->_encrypt->encryption()->decrypt($fileContent));
     }
 
+    /**
+     * @param Request $request
+     * copy file from server to hard disk
+     */
     public function download(Request $request){
         $file = $request->file;
         $exe = substr(basename($file), strrpos(basename($file),'.') + 1);

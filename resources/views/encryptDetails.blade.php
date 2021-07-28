@@ -32,7 +32,7 @@
     <tbody>
         <tr>
             <td>{{$fileData['name'] ?? ''}}</td>
-            <td>{{$fileData['size'] ?? ''}}</td>
+            <td>{{$fileData['size'] . 'KB' ?? ''}}</td>
             <td>{{$fileData['exe'] ?? ''}}</td>
         </tr>
     </tbody>
