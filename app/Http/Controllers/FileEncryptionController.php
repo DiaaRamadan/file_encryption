@@ -29,6 +29,7 @@ class FileEncryptionController extends Controller
         }catch (\Exception $exception){
             die('Can not access file');
         }
+
     }
 
     private function encrypt($file): void{
@@ -42,21 +43,11 @@ class FileEncryptionController extends Controller
     }
 
     public function download(Request $request){
-
         $file = $request->file;
         $exe = substr(basename($file), strrpos(basename($file),'.') + 1);
+        $path = $request->location;
         $name = $request->name.'.'.$exe;
-        if (file_exists($file)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.$name.'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($file));
-            readfile($file);
-            exit;
-        }
+        copy($file, $path.'\\'.$name);
+        die('file downloaded to your location');
     }
-
 }

@@ -31,9 +31,9 @@
     </thead>
     <tbody>
         <tr>
-            <td>{{$fileData['name']}}</td>
-            <td>{{$fileData['size']}}</td>
-            <td>{{$fileData['exe']}}</td>
+            <td>{{$fileData['name'] ?? ''}}</td>
+            <td>{{$fileData['size'] ?? ''}}</td>
+            <td>{{$fileData['exe'] ?? ''}}</td>
         </tr>
     </tbody>
 </table>
@@ -49,12 +49,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="/file/download">
+                <form method="post" action="{{url('file/download')}}">
                     @csrf
                     <div class="form-group mb-4">
                         <input type="text" placeholder="name" class="form-control" name="name">
                     </div>
-                    <input type="hidden" name="file" value="{{$fileData['path']}}">
+                    <div class="form-group mb-4">
+                        <label>Location</label>
+                        <input type="text" name="location" class="form-control">
+                    </div>
+                    <input type="hidden" name="file" value="{{$fileData['path'] ?? ''}}">
                     <input type="submit" value="Download" class="btn btn-primary">
                 </form>
             </div>

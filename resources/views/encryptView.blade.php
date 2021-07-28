@@ -14,7 +14,7 @@
 </head>
 <body>
     <h1 class="text-center mt-4 mb-4">Upload file</h1>
-    <form method="post" id="form" action="file/do-operation" enctype="multipart/form-data">
+    <form method="post" id="form" action="{{url('file/do-operation')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group mb-4">
             <input type="file" class="form-control" name="file" id="file">
