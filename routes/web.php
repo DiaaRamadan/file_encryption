@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FileEncryptionController::class, 'index']);
 Route::post('file/do-operation', [FileEncryptionController::class, 'doOperation']);
 Route::post('file/download', [FileEncryptionController::class, 'download']);
+Route::post('file/copy', [FileEncryptionController::class, 'copy']);

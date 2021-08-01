@@ -6,6 +6,8 @@ use App\Services\Encryption\Encrypt;
 use App\Services\Encryption\OpenSSL;
 use App\Services\UploadService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FileEncryptionController extends Controller
 {
@@ -58,12 +60,21 @@ class FileEncryptionController extends Controller
      * @param Request $request
      * copy file from server to hard disk
      */
-    public function download(Request $request){
+    public function copy(Request $request){
         $file = $request->file;
         $exe = substr(basename($file), strrpos(basename($file),'.') + 1);
         $path = $request->location;
         $name = $request->name.'.'.$exe;
-        copy($file, $path.'\\'.$name);
+        copy($file, $path.'/'.$name);
         die('file downloaded to your location');
+    }
+
+    /**
+     * @param Request $request
+     * @return BinaryFileResponse
+     */
+    public function download(Request $request): BinaryFileResponse
+    {
+        return Response::download($request->path);
     }
 }

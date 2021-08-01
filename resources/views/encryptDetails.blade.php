@@ -18,8 +18,13 @@
 <h1 class="text-center mt-4 mb-3">File Details</h1>
 <div class="text-center mb-4">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Download
+        Copy to disk
     </button>
+    <form action="{{url('file/download')}}" method="post" class="d-inline">
+        @csrf
+        <input type="hidden" value="{{$fileData['path']}}" name="path">
+        <input type="submit" value="Download" class="btn btn-primary">
+    </form>
 </div>
 <table class="table">
     <thead class="thead-light">
@@ -49,7 +54,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{url('file/download')}}">
+                <form method="post" action="{{url('file/copy')}}">
                     @csrf
                     <div class="form-group mb-4">
                         <input type="text" placeholder="name" class="form-control" name="name">
