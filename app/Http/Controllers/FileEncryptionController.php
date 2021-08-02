@@ -63,18 +63,7 @@ class FileEncryptionController extends Controller
     public function copy(Request $request){
         $file = $request->file;
         $exe = substr(basename($file), strrpos(basename($file),'.') + 1);
-        $path = $request->location;
         $name = $request->name.'.'.$exe;
-        copy($file, $path.'/'.$name);
-        die('file downloaded to your location');
-    }
-
-    /**
-     * @param Request $request
-     * @return BinaryFileResponse
-     */
-    public function download(Request $request): BinaryFileResponse
-    {
-        return Response::download($request->path);
+        return Response::download($file, $name);
     }
 }
